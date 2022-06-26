@@ -2,13 +2,14 @@
  * Due to change by Google. The browser will NOT
  * play sound files UNTIL user has interacted
  * with DOM (This is actually a good change for
- * user experience). 
+ * user experience).
  */
 
 $(document).keypress(function(event) {
   if(event.key === 'a') {
     var buttonColors = ["red", "blue", "green", "yellow"]; // Allow color to be mapped to index value
     var gamePattern = []; // Stores pattern that must be matched
+    var userClickPattern = []; // Store pattern user has clicked!
 
     function nextSequence() {
       return Math.floor(Math.random() * 4); // Value between 0 and 3
@@ -26,5 +27,13 @@ $(document).keypress(function(event) {
     // Play corresponding audio of button
     var audio = new Audio(`./sounds/${buttonColors[randomChosenColor]}.mp3`);
     audio.play();
+
+    // Adding event to track clicks on buttons
+    $(".btn").click(function(event) {
+      console.log(event.target.id);
+      userClickPattern.push(event.target.id);
+      console.log(userClickPattern);
+    });
+
   }
 });
